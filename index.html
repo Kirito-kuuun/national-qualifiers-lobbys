@@ -383,13 +383,20 @@
 
         function updateCountdown() {
             const now = new Date();
-            const lobby1Date = new Date();
-            lobby1Date.setDate(now.getDate() + 1);
-            lobby1Date.setHours(21, 0, 0, 0);
             
+            // Lobby A - aujourd'hui à 21h
+            const lobby1Date = new Date();
+            lobby1Date.setHours(21, 0, 0, 0); // Même jour, 21h
+            
+            // Si l'heure actuelle est déjà passée 21h aujourd'hui, on prend 21h demain
+            if (now > lobby1Date) {
+                lobby1Date.setDate(lobby1Date.getDate() + 1);
+            }
+            
+            // Lobby B - demain à 21h
             const lobby2Date = new Date();
-            lobby2Date.setDate(now.getDate() + 2);
-            lobby2Date.setHours(21, 0, 0, 0);
+            lobby2Date.setDate(lobby2Date.getDate() + 1); // Demain
+            lobby2Date.setHours(21, 0, 0, 0); // 21h
             
             [1, 2].forEach((lobbyNum, index) => {
                 const targetDate = index === 0 ? lobby1Date : lobby2Date;
