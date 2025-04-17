@@ -4,13 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RÉPARTITION DES LOBBIES - NATIONAL QUALIFIERS 2025</title>
-    
-    <!-- CSS avec triple fallback -->
+    <link rel="icon" href="assets/images/icon.ico" type="image/x-icon">
+   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"
           onerror="this.onerror=null;this.href='./assets/css/animate.min.css'">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;600&display=swap">
     
     <style>
+        /* ===== LOADER STYLES ===== */
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #120c2e 0%, #0a0618 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .loader-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-inner:nth-child(2) {
+            border-top-color: var(--secondary-color);
+            animation-delay: 0.2s;
+        }
+
+        .loader-inner:nth-child(3) {
+            border-top-color: var(--accent-color);
+            animation-delay: 0.4s;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-text {
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+
+        .loader-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loader-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        /* ===== RESTE DU CSS EXISTANT ===== */
         :root {
             --primary-color: #ff00ff;
             --secondary-color: #00ffff;
@@ -37,6 +111,8 @@
             padding: 2rem;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
         }
 
         .particles {
@@ -235,7 +311,21 @@
     </style>
 </head>
 <body>
-    <div class="overlay">
+    <!-- Écran de chargement -->
+    <div class="loader-overlay" id="loader">
+        <div class="loader">
+            <div class="loader-inner"></div>
+            <div class="loader-inner"></div>
+            <div class="loader-inner"></div>
+        </div>
+        <div class="loader-text">CHARGEMENT EN COURS...</div>
+        <div class="loader-progress">
+            <div class="loader-progress-bar" id="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="overlay" id="main-content">
         <div class="particles" id="particles"></div>
         
         <div class="header">
@@ -328,10 +418,72 @@
                     "MADA GOAT E-SPORT",
                     "SUICIDE SQUAD"
                 ]
-            }
+            },
+            minLoadingTime: 2000 // Temps minimum d'affichage du loader en ms
         };
 
+        // ===== GESTION DU LOADER =====
+        function simulateLoading() {
+            const loader = document.getElementById('loader');
+            const progressBar = document.getElementById('loader-progress');
+            const mainContent = document.getElementById('main-content');
+            
+            let progress = 0;
+            const startTime = Date.now();
+            
+            // Animation de la barre de progression
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 90) progress = 90; // Ne pas aller jusqu'à 100% tout de suite
+                progressBar.style.width = `${progress}%`;
+            }, 200);
+            
+            // Fonction pour terminer le chargement
+            function completeLoading() {
+                const elapsed = Date.now() - startTime;
+                const remainingTime = Math.max(0, CONFIG.minLoadingTime - elapsed);
+                
+                setTimeout(() => {
+                    clearInterval(progressInterval);
+                    
+                    // Finir la barre de progression
+                    progressBar.style.width = '100%';
+                    
+                    // Masquer le loader
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        
+                        // Afficher le contenu principal
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            mainContent.style.opacity = '1';
+                            
+                            // Initialiser le reste du site
+                            initSite();
+                        }, 500);
+                    }, 300);
+                }, remainingTime);
+            }
+            
+            // Vérifier si les polices sont chargées
+            document.fonts.ready.then(() => {
+                completeLoading();
+            }).catch(() => {
+                // Fallback si document.fonts n'est pas supporté
+                setTimeout(completeLoading, CONFIG.minLoadingTime);
+            });
+        }
+        
         // ===== FONCTIONS CORE =====
+        function initSite() {
+            loadLogo();
+            displayTeams();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            createParticles();
+            checkAnimateCSS();
+        }
+
         function loadLogo() {
             const logo = document.getElementById('main-logo');
             let attempts = 0;
@@ -414,18 +566,8 @@
                 document.getElementById(`seconds-${lobbyNum}`).textContent = seconds.toString().padStart(2, '0');
             });
         }
-
-        // ===== INITIALISATION =====
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. Charger le logo en premier
-            loadLogo();
-            
-            // 2. Initialiser les autres composants
-            displayTeams();
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-            
-            // 3. Créer des particules
+        
+        function createParticles() {
             for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -437,14 +579,21 @@
                 particle.style.animationDelay = `${Math.random() * 10}s`;
                 document.getElementById('particles').appendChild(particle);
             }
-            
-            // 4. Fallback pour animate.css
+        }
+        
+        function checkAnimateCSS() {
             if (!document.querySelector('.animate__animated')) {
                 const fallbackCSS = document.createElement('link');
                 fallbackCSS.rel = 'stylesheet';
                 fallbackCSS.href = './assets/css/animate.min.css';
                 document.head.appendChild(fallbackCSS);
             }
+        }
+
+        // ===== INITIALISATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Démarrer l'animation de chargement
+            simulateLoading();
         });
 
         // ===== GESTION DES ERREURS =====
