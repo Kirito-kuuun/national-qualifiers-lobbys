@@ -4,120 +4,392 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RÉPARTITION DES LOBBIES - NATIONAL QUALIFIERS 2025</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@400;600&display=swap">
     <style>
+        :root {
+            --primary-color: #ff00ff;
+            --secondary-color: #00ffff;
+            --accent-color: #ff5500;
+            --dark-bg: rgba(0, 0, 0, 0.85);
+            --card-bg: rgba(30, 30, 40, 0.7);
+            --text-color: #ffffff;
+            --text-secondary: #cccccc;
+            --success-color: #4CAF50;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: url('https://cdn.discordapp.com/attachments/1250803212433362945/1361106467008151604/IMG_7751.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
+        
         .overlay {
-            background-color: rgba(0, 0, 0, 0.8);
             min-height: 100vh;
             padding-bottom: 2rem;
         }
+        
         .header {
             text-align: center;
             padding: 2rem 1rem 1rem;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+            animation: rainbow 5s linear infinite;
+            z-index: 1;
+        }
+        
         .organizer-logo {
             display: block;
-            margin: 0 auto 1rem;
-            height: 60px;
+            margin: 0 auto;
+            height: 80px;
+            width: 80px;
+            object-fit: contain;
             border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px var(--primary-color);
+            transition: transform 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.3);
         }
+        
+        .organizer-logo:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
         h1 {
-            margin: 0;
-            font-size: 2.5rem;
+            margin: 1rem 0 0;
+            font-size: 2.8rem;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+            animation: textGlow 2s infinite alternate;
         }
+        
         p.subtitle {
             margin-top: 0.5rem;
-            color: #ccc;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
         }
+        
         .countdown-container {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 2rem auto;
+            gap: 20px;
         }
+        
         .countdown {
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
             text-align: center;
             width: 45%;
-            min-width: 280px;
-            margin: 1rem;
+            min-width: 300px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
-        .countdown-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #ff00ff;
+        
+        .countdown:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
-        .countdown-label {
-            font-size: 1rem;
-            opacity: 0.8;
+        
+        .countdown::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         }
+        
+        .countdown h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
         .countdown-timer {
             display: flex;
             justify-content: space-around;
+            margin-top: 1rem;
         }
+        
+        .countdown-timer div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .countdown-value {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            min-width: 80px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+        
         .lobby-container {
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 20px;
         }
+        
         .lobby {
-            background: rgba(255,255,255,0.1);
+            background: var(--card-bg);
             border-radius: 15px;
             width: 45%;
-            min-width: 300px;
-            margin: 1rem;
-            padding: 1.5rem;
+            min-width: 320px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            position: relative;
         }
+        
+        .lobby:hover {
+            transform: translateY(-5px);
+        }
+        
+        .lobby::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
         .lobby-title {
-            color: #ff00ff;
-            border-bottom: 2px solid;
-            padding-bottom: 0.5rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
             font-size: 1.5rem;
             text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.2);
         }
+        
         .team {
-            padding: 0.6rem;
-            margin: 0.4rem 0;
-            background: rgba(255,255,255,0.05);
-            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            margin: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .team::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--primary-color);
+        }
+        
+        .team-number {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .team:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .team:nth-child(even) {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
         footer {
             text-align: center;
             margin-top: 4rem;
-            color: #aaa;
+            color: var(--text-secondary);
             font-size: 0.9rem;
+            padding: 1rem;
+            position: relative;
         }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
+            }
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
             .countdown, .lobby {
                 width: 90%;
+                min-width: unset;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+                min-width: 60px;
+            }
+        }
+        
+        /* Particles effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
             }
         }
     </style>
 </head>
 <body>
     <div class="overlay">
+        <div class="particles" id="particles"></div>
+        
         <div class="header">
-            <img class="organizer-logo" src="https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg" alt="Logo organisateur">
-            <h1>RÉPARTITION DES LOBBIES</h1>
-            <p class="subtitle">NATIONAL QUALIFIERS 2025</p>
+            <img class="organizer-logo" 
+                 src="https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg" 
+                 alt="Logo organisateur"
+                 onerror="this.onerror=null;this.src='https://via.placeholder.com/80?text=ORG';this.style.borderRadius='50%'">
+            
+            <h1 class="animate__animated animate__fadeIn">RÉPARTITION DES LOBBIES</h1>
+            <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">NATIONAL QUALIFIERS 2025</p>
         </div>
 
         <div class="countdown-container">
-            <div class="countdown">
+            <div class="countdown animate__animated animate__fadeInLeft">
                 <h3>LOBBY A COMMENCE DANS</h3>
                 <div class="countdown-timer" id="countdown-1">
                     <div><span class="countdown-value" id="days-1">00</span><br><span class="countdown-label">JOURS</span></div>
@@ -126,7 +398,7 @@
                     <div><span class="countdown-value" id="seconds-1">00</span><br><span class="countdown-label">SECONDES</span></div>
                 </div>
             </div>
-            <div class="countdown">
+            <div class="countdown animate__animated animate__fadeInRight">
                 <h3>LOBBY B COMMENCE DANS</h3>
                 <div class="countdown-timer" id="countdown-2">
                     <div><span class="countdown-value" id="days-2">00</span><br><span class="countdown-label">JOURS</span></div>
@@ -138,51 +410,53 @@
         </div>
 
         <div class="lobby-container">
-            <div class="lobby">
+            <div class="lobby animate__animated animate__fadeInUp animate__delay-1s">
                 <div class="lobby-title">LOBBY A - 18 AVRIL 21H00</div>
                 <div id="teams-1"></div>
             </div>
-            <div class="lobby">
+            <div class="lobby animate__animated animate__fadeInUp animate__delay-1s">
                 <div class="lobby-title">LOBBY B - 19 AVRIL 21H00</div>
                 <div id="teams-2"></div>
             </div>
         </div>
 
-        <footer>By: Kirito</footer>
+        <footer class="animate__animated animate__fadeIn animate__delay-2s">By: Kirito</footer>
     </div>
 
     <script>
+        // Configuration des données avec numérotation
         const lobbies = {
             "Lobby A": [
-                "- DARK PRIME",
-                "- LES ORIGINELS",
-                "- GOTHAM",
-                "- NERV 667",
-                "- DREAD NOUGHT",
-                "- UNKNOW BRAIN",
-                "- THE BAD GUYS",
-                "- THE HUNTER OF DREAMS",
-                "- OLDGAMER",
-                "- VOANJOBORY",
-                "- NOOBSTORM",
-                "- TEAM BABY"
+                "DARK PRIME",
+                "LES ORIGINELS",
+                "GOTHAM",
+                "NERV 667",
+                "DREAD NOUGHT",
+                "UNKNOW BRAIN",
+                "THE BAD GUYS",
+                "THE HUNTER OF DREAMS",
+                "OLDGAMER",
+                "VOANJOBORY",
+                "NOOBSTORM",
+                "TEAM BABY"
             ],
             "Lobby B": [
-                "- DOOMBRINGERS",
-                "- CIPHER POL O",
-                "- AMBOHIPO STREET",
-                "- JOBA",
-                "- INSANE UND",
-                "- DEAD",
-                "- MDG E-SPORT",
-                "- EAZY GAMES",
-                "- BRIGADE FANTÔME",
-                "- THE INVISIBLE AFK",
-                "- MADA GOAT E-SPORT",
-                "- SUICIDE SQUAD"
+                "DOOMBRINGERS",
+                "CIPHER POL O",
+                "AMBOHIPO STREET",
+                "JOBA",
+                "INSANE UND",
+                "DEAD",
+                "MDG E-SPORT",
+                "EAZY GAMES",
+                "BRIGADE FANTÔME",
+                "THE INVISIBLE AFK",
+                "MADA GOAT E-SPORT",
+                "SUICIDE SQUAD"
             ]
         };
 
+        // Dates des lobbies
         const lobby1Date = new Date();
         lobby1Date.setDate(lobby1Date.getDate() + 1);
         lobby1Date.setHours(21, 0, 0, 0);
@@ -191,6 +465,38 @@
         lobby2Date.setDate(lobby2Date.getDate() + 2);
         lobby2Date.setHours(21, 0, 0, 0);
 
+        // Fonction pour créer des particules
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Taille aléatoire entre 2px et 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `-${size}px`;
+                
+                // Animation aléatoire
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                
+                // Couleur aléatoire
+                const colors = ['#ff00ff', '#00ffff', '#ff5500', '#ffffff'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Fonction pour mettre à jour le compte à rebours
         function updateCountdown() {
             const now = new Date();
 
@@ -200,7 +506,14 @@
                 const container = document.getElementById(`countdown-${i}`);
 
                 if (diff <= 0) {
-                    container.innerHTML = "<div style='font-size:1.5rem;color:#4CAF50;padding:10px;'>EN COURS !</div>";
+                    container.innerHTML = `<div style='font-size:1.5rem;color:var(--success-color);padding:10px;font-weight:bold;text-transform:uppercase;'>EN COURS !</div>`;
+                    
+                    // Mettre en évidence le lobby en cours
+                    const lobbyElement = document.querySelector(`.lobby:nth-child(${i})`);
+                    if (lobbyElement) {
+                        lobbyElement.style.boxShadow = `0 0 20px var(--success-color)`;
+                        lobbyElement.querySelector('.lobby-title').style.color = 'var(--success-color)';
+                    }
                 } else {
                     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -215,24 +528,47 @@
             });
         }
 
+        // Fonction pour afficher les équipes avec numérotation
         function displayTeams() {
             [1, 2].forEach(i => {
-                const lobbyKey = `Lobby ${String.fromCharCode(64 + i)}`; // A or B
+                const lobbyKey = `Lobby ${String.fromCharCode(64 + i)}`;
                 const container = document.getElementById(`teams-${i}`);
+                
                 lobbies[lobbyKey].forEach((team, index) => {
                     const div = document.createElement('div');
                     div.className = 'team';
                     div.style.animationDelay = `${index * 0.1}s`;
-                    div.textContent = team;
+                    
+                    // Ajout du numéro devant le nom de l'équipe
+                    const teamNumber = document.createElement('span');
+                    teamNumber.className = 'team-number';
+                    teamNumber.textContent = index + 1;
+                    
+                    const teamName = document.createElement('span');
+                    teamName.textContent = team;
+                    
+                    div.appendChild(teamNumber);
+                    div.appendChild(teamName);
                     container.appendChild(div);
                 });
             });
         }
 
+        // Initialisation au chargement de la page
         window.onload = () => {
+            createParticles();
             displayTeams();
             updateCountdown();
             setInterval(updateCountdown, 1000);
+            
+            // Ajout d'un effet de son au survol des éléments
+            document.querySelectorAll('.countdown, .lobby, .team').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-10.mp3');
+                    audio.volume = 0.2;
+                    audio.play().catch(e => console.log("Audio play failed:", e));
+                });
+            });
         };
     </script>
 </body>
