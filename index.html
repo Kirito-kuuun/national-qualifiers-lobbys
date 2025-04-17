@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>RÉPARTITION DES LOBBIES - NATIONAL QUALIFIERS 2025</title>
+
     <link rel="icon" href="assets/images/icon.ico" type="image/x-icon">
    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"
           onerror="this.onerror=null;this.href='./assets/css/animate.min.css'">
+
+    
+
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;600&display=swap">
     
     <style>
@@ -301,7 +307,6 @@
             font-size: 0.9rem;
         }
 
-        /* Mode dégradé */
         .degraded-mode {
             animation: none !important;
         }
@@ -372,20 +377,18 @@
         </div>
 
         <footer>
-            Credit: <strong>KIRITO</strong>
+            CREDIT: <strong>KIRITO & THUG</strong>
         </footer>
     </div>
 
     <script>
-        // ===== CONFIGURATION =====
+        // CONFIGURATION
         const CONFIG = {
             logo: {
                 sources: [
-                    // Ordre optimisé pour GitHub
-                    "https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/main/logo%20de%20l%20organisateur.jpg",
-                    "./logo%20de%20l%20organisateur.jpg",
-                    "https://cdn.jsdelivr.net/gh/Kirito-kuuun/national-qualifiers-lobbys@main/logo%20de%20l%20organisateur.jpg",
-                    "./assets/images/logo%20de%20l%20organisateur.jpg"
+                    "./assets/images/logo.jpg",
+                    "./logo.jpg",
+                    "assets/images/logo.jpg"
                 ],
                 fallback: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%231a0d2a'/%3E%3Ctext x='60' y='65' font-family='Arial' font-size='14' fill='%23ffffff' text-anchor='middle'%3ELOGO%3C/text%3E%3C/svg%3E"
             },
@@ -421,6 +424,7 @@
             },
             minLoadingTime: 2000 // Temps minimum d'affichage du loader en ms
         };
+
 
         // ===== GESTION DU LOADER =====
         function simulateLoading() {
@@ -484,6 +488,7 @@
             checkAnimateCSS();
         }
 
+
         function loadLogo() {
             const logo = document.getElementById('main-logo');
             let attempts = 0;
@@ -536,11 +541,14 @@
         function updateCountdown() {
             const now = new Date();
             const lobby1Date = new Date();
-            lobby1Date.setDate(now.getDate() + 1);
             lobby1Date.setHours(21, 0, 0, 0);
             
+            if (now > lobby1Date) {
+                lobby1Date.setDate(lobby1Date.getDate() + 1);
+            }
+            
             const lobby2Date = new Date();
-            lobby2Date.setDate(now.getDate() + 2);
+            lobby2Date.setDate(lobby2Date.getDate() + 1);
             lobby2Date.setHours(21, 0, 0, 0);
             
             [1, 2].forEach((lobbyNum, index) => {
@@ -566,8 +574,17 @@
                 document.getElementById(`seconds-${lobbyNum}`).textContent = seconds.toString().padStart(2, '0');
             });
         }
+
         
         function createParticles() {
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLogo();
+            displayTeams();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+
             for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -579,6 +596,7 @@
                 particle.style.animationDelay = `${Math.random() * 10}s`;
                 document.getElementById('particles').appendChild(particle);
             }
+
         }
         
         function checkAnimateCSS() {
@@ -594,9 +612,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Démarrer l'animation de chargement
             simulateLoading();
+
         });
 
-        // ===== GESTION DES ERREURS =====
         window.addEventListener('error', (e) => {
             console.error("Erreur interceptée:", e.message);
             document.body.classList.add('degraded-mode');
