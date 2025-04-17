@@ -7,52 +7,63 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a2e;
+            background: url('https://cdn.discordapp.com/attachments/1250803212433362945/1361106467008151604/IMG_7751.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: white;
             margin: 0;
             padding: 0;
         }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.8);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
         .header {
-            background: linear-gradient(135deg, #d500f9 0%, #ff00ff 100%);
-            padding: 2rem;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            padding: 2rem 1rem 1rem;
         }
-        .organizer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 1rem;
-        }
-        .organizer img {
+        .organizer-logo {
+            display: block;
+            margin: 0 auto 1rem;
             height: 60px;
             border-radius: 50%;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        p.subtitle {
+            margin-top: 0.5rem;
+            color: #ccc;
         }
         .countdown-container {
             display: flex;
             justify-content: space-around;
-            margin: 2rem auto;
-            max-width: 800px;
             flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 2rem auto;
         }
         .countdown {
-            background: rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.05);
             border-radius: 10px;
             padding: 1rem;
             text-align: center;
             width: 45%;
-            min-width: 300px;
-            margin: 0.5rem;
+            min-width: 280px;
+            margin: 1rem;
         }
         .countdown-value {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #d500f9;
+            color: #ff00ff;
         }
         .countdown-label {
             font-size: 1rem;
             opacity: 0.8;
+        }
+        .countdown-timer {
+            display: flex;
+            justify-content: space-around;
         }
         .lobby-container {
             display: flex;
@@ -67,54 +78,28 @@
             min-width: 300px;
             margin: 1rem;
             padding: 1.5rem;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
         }
-        .lobby:hover {
-            transform: translateY(-5px);
-        }
-        .lobby-1 {
-            border-top: 5px solid #ff5252;
-        }
-        .lobby-2 {
-            border-top: 5px solid #448aff;
-        }
-        .team {
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            animation: fadeIn 0.5s ease-out;
-            animation-fill-mode: both;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        h2 {
-            color: #d500f9;
+        .lobby-title {
+            color: #ff00ff;
             border-bottom: 2px solid;
             padding-bottom: 0.5rem;
-            display: inline-block;
+            font-size: 1.5rem;
+            text-transform: uppercase;
         }
-        .logo {
-            height: 80px;
-            margin-bottom: 1rem;
+        .team {
+            padding: 0.6rem;
+            margin: 0.4rem 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .countdown-timer {
-            display: flex;
-            justify-content: space-around;
-        }
-        .countdown-timer div {
-            margin: 0 5px;
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: #aaa;
+            font-size: 0.9rem;
         }
         @media (max-width: 768px) {
             .countdown, .lobby {
@@ -124,158 +109,127 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="organizer">
-            <img src="https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg?ex=6802883f&is=680136bf&hm=dc73868706daca86a574a6fb31eb8af5556251baacdba13fd8cc9132d9dd59fa&" alt="DEESSE GAMING">
-            <img src="https://cdn.discordapp.com/attachments/1250803212433362945/1361106467008151604/IMG_7751.jpg?ex=680229ed&is=6800d86d&hm=5dda51fb8e6e2631037bb267677a1a3f701c6a56bf0b198ee6bbad6e1acd3b76&" alt="NATIONAL QUALIFIERS 2025" class="logo">
+    <div class="overlay">
+        <div class="header">
+            <img class="organizer-logo" src="https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg" alt="Logo organisateur">
+            <h1>RÉPARTITION DES LOBBIES</h1>
+            <p class="subtitle">NATIONAL QUALIFIERS 2025</p>
         </div>
-        <h1>RÉPARTITION DES LOBBIES</h1>
-        <p>NATIONAL QUALIFIERS 2025</p>
-    </div>
 
-    <div class="countdown-container">
-        <div class="countdown lobby-1-countdown">
-            <h3>🔴 LOBBY 1 COMMENCE DANS</h3>
-            <div class="countdown-timer" id="countdown-1">
-                <div><span class="countdown-value" id="days-1">00</span><br><span class="countdown-label">JOURS</span></div>
-                <div><span class="countdown-value" id="hours-1">00</span><br><span class="countdown-label">HEURES</span></div>
-                <div><span class="countdown-value" id="minutes-1">00</span><br><span class="countdown-label">MINUTES</span></div>
-                <div><span class="countdown-value" id="seconds-1">00</span><br><span class="countdown-label">SECONDES</span></div>
+        <div class="countdown-container">
+            <div class="countdown">
+                <h3>LOBBY A COMMENCE DANS</h3>
+                <div class="countdown-timer" id="countdown-1">
+                    <div><span class="countdown-value" id="days-1">00</span><br><span class="countdown-label">JOURS</span></div>
+                    <div><span class="countdown-value" id="hours-1">00</span><br><span class="countdown-label">HEURES</span></div>
+                    <div><span class="countdown-value" id="minutes-1">00</span><br><span class="countdown-label">MINUTES</span></div>
+                    <div><span class="countdown-value" id="seconds-1">00</span><br><span class="countdown-label">SECONDES</span></div>
+                </div>
+            </div>
+            <div class="countdown">
+                <h3>LOBBY B COMMENCE DANS</h3>
+                <div class="countdown-timer" id="countdown-2">
+                    <div><span class="countdown-value" id="days-2">00</span><br><span class="countdown-label">JOURS</span></div>
+                    <div><span class="countdown-value" id="hours-2">00</span><br><span class="countdown-label">HEURES</span></div>
+                    <div><span class="countdown-value" id="minutes-2">00</span><br><span class="countdown-label">MINUTES</span></div>
+                    <div><span class="countdown-value" id="seconds-2">00</span><br><span class="countdown-label">SECONDES</span></div>
+                </div>
             </div>
         </div>
-        
-        <div class="countdown lobby-2-countdown">
-            <h3>🔵 LOBBY 2 COMMENCE DANS</h3>
-            <div class="countdown-timer" id="countdown-2">
-                <div><span class="countdown-value" id="days-2">00</span><br><span class="countdown-label">JOURS</span></div>
-                <div><span class="countdown-value" id="hours-2">00</span><br><span class="countdown-label">HEURES</span></div>
-                <div><span class="countdown-value" id="minutes-2">00</span><br><span class="countdown-label">MINUTES</span></div>
-                <div><span class="countdown-value" id="seconds-2">00</span><br><span class="countdown-label">SECONDES</span></div>
+
+        <div class="lobby-container">
+            <div class="lobby">
+                <div class="lobby-title">LOBBY A - 18 AVRIL 21H00</div>
+                <div id="teams-1"></div>
+            </div>
+            <div class="lobby">
+                <div class="lobby-title">LOBBY B - 19 AVRIL 21H00</div>
+                <div id="teams-2"></div>
             </div>
         </div>
-    </div>
 
-    <div class="lobby-container">
-        <div class="lobby lobby-1" id="lobby-1">
-            <h2>🔴 LOBBY 1 - 18 AVRIL 21H00</h2>
-            <div id="teams-1"></div>
-        </div>
-
-        <div class="lobby lobby-2" id="lobby-2">
-            <h2>🔵 LOBBY 2 - 19 AVRIL 21H00</h2>
-            <div id="teams-2"></div>
-        </div>
+        <footer>By: Kirito</footer>
     </div>
 
     <script>
-        // Répartition des équipes en MAJUSCULES
         const lobbies = {
-            "Lobby 1": [
-                "1. DARK PRIME",
-                "2. LES ORIGINELS",
-                "3. GOTHAM",
-                "4. NERV 667",
-                "5. DREAD NOUGHT",
-                "6. UNKNOW BRAIN",
-                "7. THE BAD GUYS",
-                "8. THE HUNTER OF DREAMS",
-                "9. OLDGAMER",
-                "10. VOANJOBORY",
-                "11. NOOBSTORM",
-                "12. TEAM BABY"
+            "Lobby A": [
+                "- DARK PRIME",
+                "- LES ORIGINELS",
+                "- GOTHAM",
+                "- NERV 667",
+                "- DREAD NOUGHT",
+                "- UNKNOW BRAIN",
+                "- THE BAD GUYS",
+                "- THE HUNTER OF DREAMS",
+                "- OLDGAMER",
+                "- VOANJOBORY",
+                "- NOOBSTORM",
+                "- TEAM BABY"
             ],
-            "Lobby 2": [
-                "1. DOOMBRINGERS",
-                "2. CIPHER POL O",
-                "3. AMBOHIPO STREET",
-                "4. JOBA",
-                "5. INSANE UND",
-                "6. DEAD",
-                "7. MDG E-SPORT",
-                "8. EAZY GAMES",
-                "9. BRIGADE FANTÔME",
-                "10. THE INVISIBLE AFK",
-                "11. MADA GOAT E-SPORT",
-                "12. SUICIDE SQUAD"
+            "Lobby B": [
+                "- DOOMBRINGERS",
+                "- CIPHER POL O",
+                "- AMBOHIPO STREET",
+                "- JOBA",
+                "- INSANE UND",
+                "- DEAD",
+                "- MDG E-SPORT",
+                "- EAZY GAMES",
+                "- BRIGADE FANTÔME",
+                "- THE INVISIBLE AFK",
+                "- MADA GOAT E-SPORT",
+                "- SUICIDE SQUAD"
             ]
         };
 
-        // Dates des lobbys
         const lobby1Date = new Date();
-        lobby1Date.setDate(lobby1Date.getDate() + 1); // Demain
+        lobby1Date.setDate(lobby1Date.getDate() + 1);
         lobby1Date.setHours(21, 0, 0, 0);
 
         const lobby2Date = new Date();
-        lobby2Date.setDate(lobby2Date.getDate() + 2); // Après-demain
+        lobby2Date.setDate(lobby2Date.getDate() + 2);
         lobby2Date.setHours(21, 0, 0, 0);
 
         function updateCountdown() {
             const now = new Date();
-            
-            // Calcul pour Lobby 1
-            let diff1 = lobby1Date - now;
-            if (diff1 <= 0) {
-                document.getElementById('countdown-1').innerHTML = "<div style='font-size:1.5rem;color:#4CAF50;padding:10px;'>EN COURS !</div>";
-            } else {
-                const days1 = Math.floor(diff1 / (1000 * 60 * 60 * 24));
-                const hours1 = Math.floor((diff1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes1 = Math.floor((diff1 % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds1 = Math.floor((diff1 % (1000 * 60)) / 1000);
-                
-                document.getElementById('days-1').textContent = days1.toString().padStart(2, '0');
-                document.getElementById('hours-1').textContent = hours1.toString().padStart(2, '0');
-                document.getElementById('minutes-1').textContent = minutes1.toString().padStart(2, '0');
-                document.getElementById('seconds-1').textContent = seconds1.toString().padStart(2, '0');
-            }
-            
-            // Calcul pour Lobby 2
-            let diff2 = lobby2Date - now;
-            if (diff2 <= 0) {
-                document.getElementById('countdown-2').innerHTML = "<div style='font-size:1.5rem;color:#4CAF50;padding:10px;'>EN COURS !</div>";
-            } else {
-                const days2 = Math.floor(diff2 / (1000 * 60 * 60 * 24));
-                const hours2 = Math.floor((diff2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes2 = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds2 = Math.floor((diff2 % (1000 * 60)) / 1000);
-                
-                document.getElementById('days-2').textContent = days2.toString().padStart(2, '0');
-                document.getElementById('hours-2').textContent = hours2.toString().padStart(2, '0');
-                document.getElementById('minutes-2').textContent = minutes2.toString().padStart(2, '0');
-                document.getElementById('seconds-2').textContent = seconds2.toString().padStart(2, '0');
-            }
+
+            [1, 2].forEach(i => {
+                const targetDate = i === 1 ? lobby1Date : lobby2Date;
+                const diff = targetDate - now;
+                const container = document.getElementById(`countdown-${i}`);
+
+                if (diff <= 0) {
+                    container.innerHTML = "<div style='font-size:1.5rem;color:#4CAF50;padding:10px;'>EN COURS !</div>";
+                } else {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    document.getElementById(`days-${i}`).textContent = String(days).padStart(2, '0');
+                    document.getElementById(`hours-${i}`).textContent = String(hours).padStart(2, '0');
+                    document.getElementById(`minutes-${i}`).textContent = String(minutes).padStart(2, '0');
+                    document.getElementById(`seconds-${i}`).textContent = String(seconds).padStart(2, '0');
+                }
+            });
         }
 
         function displayTeams() {
-            const lobby1 = document.getElementById('teams-1');
-            const lobby2 = document.getElementById('teams-2');
-            
-            lobbies["Lobby 1"].forEach((team, index) => {
-                const teamElement = document.createElement('div');
-                teamElement.className = 'team';
-                teamElement.style.animationDelay = `${index * 0.1}s`;
-                
-                let emoji = '🎮';
-                if (index < 3) emoji = ['🥇', '🥈', '🥉'][index];
-                
-                teamElement.innerHTML = `<span style="font-size:1.2em;">${emoji}</span> ${team}`;
-                lobby1.appendChild(teamElement);
-            });
-            
-            lobbies["Lobby 2"].forEach((team, index) => {
-                const teamElement = document.createElement('div');
-                teamElement.className = 'team';
-                teamElement.style.animationDelay = `${index * 0.1}s`;
-                
-                let emoji = '🎮';
-                if (index < 3) emoji = ['🥇', '🥈', '🥉'][index];
-                
-                teamElement.innerHTML = `<span style="font-size:1.2em;">${emoji}</span> ${team}`;
-                lobby2.appendChild(teamElement);
+            [1, 2].forEach(i => {
+                const lobbyKey = `Lobby ${String.fromCharCode(64 + i)}`; // A or B
+                const container = document.getElementById(`teams-${i}`);
+                lobbies[lobbyKey].forEach((team, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'team';
+                    div.style.animationDelay = `${index * 0.1}s`;
+                    div.textContent = team;
+                    container.appendChild(div);
+                });
             });
         }
 
-        // Initialisation
-        window.onload = function() {
+        window.onload = () => {
             displayTeams();
             updateCountdown();
             setInterval(updateCountdown, 1000);
