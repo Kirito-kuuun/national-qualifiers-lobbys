@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RÉPARTITION DES LOBBIES - NATIONAL QUALIFIERS 2025</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;600&display=swap">
+    
     <style>
         :root {
             --primary-color: #ff00ff;
@@ -16,636 +19,254 @@
             --text-color: #ffffff;
             --text-secondary: #cccccc;
             --success-color: #00ff88;
-            --glow-intensity: 0.6;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+
         body {
             font-family: 'Montserrat', sans-serif;
             background: radial-gradient(circle at center, #120c2e 0%, #0a0618 100%);
             color: var(--text-color);
-            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
             min-height: 100vh;
-            position: relative;
+            overflow-x: hidden;
         }
-        
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(var(--primary-color), 0.15) 0%, transparent 30%),
-                radial-gradient(circle at 80% 70%, rgba(var(--secondary-color), 0.15) 0%, transparent 30%);
-            z-index: -1;
-            animation: pulseBackground 15s infinite alternate;
-        }
-        
-        @keyframes pulseBackground {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.7; }
-        }
-        
+
         .overlay {
             min-height: 100vh;
-            padding-bottom: 2rem;
-            backdrop-filter: blur(2px);
+            padding: 2rem;
+            position: relative;
         }
-        
+
         .header {
             text-align: center;
-            padding: 2rem 1rem 1rem;
+            padding: 2rem 1rem;
             position: relative;
-            overflow: hidden;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+            z-index: 2;
         }
-        
-        .header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), var(--primary-color), transparent);
-            animation: rainbow 8s linear infinite;
-            background-size: 400% 100%;
-            z-index: 1;
-        }
-        
-        @keyframes rainbow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 400% 50%; }
-        }
-        
-        .organizer-logo-container {
-            position: relative;
+
+        .logo-container {
             width: 120px;
             height: 120px;
             margin: 0 auto 1.5rem;
-            perspective: 1000px;
-        }
-        
-        .organizer-logo {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
             border-radius: 50%;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: 3px solid var(--primary-color);
-            box-shadow: 
-                0 0 20px var(--primary-color),
-                0 0 40px rgba(var(--primary-color), 0.3);
-            transform-style: preserve-3d;
-            animation: floatLogo 6s ease-in-out infinite;
+            box-shadow: 0 0 20px var(--primary-color);
+            overflow: hidden;
             transition: all 0.3s ease;
-            background: rgba(0,0,0,0.5);
         }
-        
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0) rotateX(5deg) rotateY(5deg); }
-            50% { transform: translateY(-15px) rotateX(-5deg) rotateY(5deg); }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--primary-color);
         }
-        
-        .organizer-logo:hover {
-            animation: none;
-            transform: scale(1.05) rotateY(15deg);
-            box-shadow: 
-                0 0 30px var(--primary-color),
-                0 0 60px rgba(var(--primary-color), 0.5);
+
+        .logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            animation: fadeIn 1s ease-out;
         }
-        
+
         h1 {
-            margin: 1rem 0 0;
-            font-size: 3rem;
             font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem;
             background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
-            animation: textGlow 3s infinite alternate;
-            position: relative;
-            display: inline-block;
+            animation: textGlow 2s infinite alternate;
         }
-        
-        h1::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, transparent, var(--primary-color), var(--secondary-color), transparent);
-            animation: h1Underline 4s infinite;
-        }
-        
-        @keyframes h1Underline {
-            0% { background-position: -100% 0; }
-            100% { background-position: 100% 0; }
-        }
-        
-        p.subtitle {
-            margin-top: 0.5rem;
+
+        .subtitle {
             color: var(--text-secondary);
-            font-size: 1.3rem;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(var(--secondary-color), 0.5);
-            animation: fadeIn 2s ease-in-out;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out 0.5s both;
         }
-        
+
         .countdown-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             flex-wrap: wrap;
-            max-width: 1200px;
+            gap: 2rem;
             margin: 3rem auto;
-            gap: 25px;
-            perspective: 1000px;
+            max-width: 1200px;
         }
-        
+
         .countdown {
             background: var(--card-bg);
             border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            width: 45%;
-            min-width: 300px;
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.5),
-                0 0 20px rgba(var(--primary-color), 0.3);
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
             backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
             animation: fadeInUp 1s ease-out;
         }
-        
-        .countdown::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            animation: rainbow 8s linear infinite;
-        }
-        
-        .countdown::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
-            pointer-events: none;
-        }
-        
-        .countdown:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.6),
-                0 0 30px rgba(var(--primary-color), 0.5);
-        }
-        
+
         .countdown h3 {
-            margin-top: 0;
-            margin-bottom: 1.5rem;
             color: var(--secondary-color);
             font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(var(--secondary-color), 0.5);
-            font-size: 1.5rem;
-            position: relative;
-            display: inline-block;
+            text-align: center;
+            margin-bottom: 1.5rem;
         }
-        
-        .countdown h3::after {
-            content: "";
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--secondary-color), transparent);
-        }
-        
+
         .countdown-timer {
             display: flex;
             justify-content: space-around;
-            margin-top: 1.5rem;
-            gap: 10px;
+            text-align: center;
         }
-        
-        .countdown-timer div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            perspective: 500px;
-        }
-        
+
         .countdown-value {
-            font-size: 3.5rem;
-            font-weight: bold;
+            font-size: 2.5rem;
             font-family: 'Orbitron', sans-serif;
             color: var(--primary-color);
-            text-shadow: 
-                0 0 10px rgba(var(--primary-color), var(--glow-intensity)),
-                0 0 20px rgba(var(--primary-color), 0.3);
-            min-width: 90px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 12px;
-            padding: 10px 15px;
-            margin-bottom: 8px;
-            animation: pulse 2s infinite alternate;
-            transform-style: preserve-3d;
-            position: relative;
-            border: 1px solid rgba(var(--primary-color), 0.3);
+            font-weight: 700;
+            animation: pulse 2s infinite;
         }
-        
-        .countdown-value::before {
-            content: "";
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 14px;
-            border: 2px solid var(--primary-color);
-            opacity: 0;
-            animation: borderPulse 3s infinite;
-        }
-        
-        @keyframes borderPulse {
-            0%, 100% { opacity: 0; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.02); }
-        }
-        
+
         .countdown-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 0.9rem;
+            opacity: 0.8;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-            font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 5px rgba(var(--secondary-color), 0.3);
+            letter-spacing: 1px;
         }
-        
+
         .lobby-container {
             display: flex;
-            justify-content: space-around;
             flex-wrap: wrap;
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 30px;
-            perspective: 1000px;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem auto;
+            max-width: 1200px;
         }
-        
+
         .lobby {
             background: var(--card-bg);
-            border-radius: 20px;
-            width: 45%;
-            min-width: 320px;
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.5),
-                0 0 20px rgba(var(--secondary-color), 0.3);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
             backdrop-filter: blur(10px);
             overflow: hidden;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: fadeInUp 1s ease-out 0.2s backwards;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
-        
-        .lobby::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            animation: rainbow 8s linear infinite;
-            z-index: 1;
-        }
-        
-        .lobby::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
-            pointer-events: none;
-        }
-        
-        .lobby:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.6),
-                0 0 30px rgba(var(--secondary-color), 0.5);
-        }
-        
+
         .lobby-title {
-            color: var(--primary-color);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            font-size: 1.7rem;
-            text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            letter-spacing: 2px;
             background: rgba(0, 0, 0, 0.3);
-            text-shadow: 0 0 10px rgba(var(--primary-color), 0.3);
-            position: relative;
+            padding: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .lobby-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(var(--primary-color), 0.5), transparent);
-        }
-        
+
         .team-list {
             padding: 1rem;
         }
-        
+
         .team {
-            padding: 1rem;
-            margin: 0.7rem;
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s ease;
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s forwards;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeIn 0.5s ease-out;
+            animation-fill-mode: both;
         }
-        
-        .team::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--primary-color);
-            transition: all 0.3s ease;
-        }
-        
-        .team:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .team:hover::before {
-            width: 6px;
-            background: var(--secondary-color);
-            box-shadow: 0 0 10px var(--secondary-color);
-        }
-        
+
         .team-number {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             background: var(--primary-color);
             color: white;
             border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
             font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
             font-weight: 700;
-            box-shadow: 0 0 10px rgba(var(--primary-color), 0.5);
-            position: relative;
-            flex-shrink: 0;
         }
-        
-        .team-number::after {
-            content: "";
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-color);
-            animation: pulse 2s infinite;
-            opacity: 0.7;
-        }
-        
-        .team:nth-child(even) {
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .team:nth-child(even) .team-number {
-            background: var(--secondary-color);
-            box-shadow: 0 0 10px rgba(var(--secondary-color), 0.5);
-        }
-        
+
         footer {
             text-align: center;
-            margin-top: 5rem;
+            margin-top: 3rem;
+            padding: 1rem;
             color: var(--text-secondary);
-            font-size: 1rem;
-            padding: 1.5rem;
-            position: relative;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
-        
-        footer::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary-color), var(--secondary-color), transparent);
-        }
-        
+
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
+
         @keyframes fadeInUp {
-            from {
+            from { 
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
-            to {
+            to { 
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        
+
         @keyframes textGlow {
-            0% {
-                text-shadow: 0 0 10px rgba(var(--primary-color), 0.3);
-            }
-            100% {
-                text-shadow: 0 0 20px rgba(var(--primary-color), 0.7),
-                             0 0 30px rgba(var(--secondary-color), 0.3);
-            }
+            0% { text-shadow: 0 0 10px var(--primary-color); }
+            50% { text-shadow: 0 0 20px var(--secondary-color); }
+            100% { text-shadow: 0 0 10px var(--primary-color); }
         }
-        
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         /* Responsive */
-        @media (max-width: 992px) {
-            .countdown, .lobby {
-                width: 90%;
-                min-width: unset;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .countdown-value {
-                font-size: 2.5rem;
-                min-width: 70px;
-            }
-        }
-        
         @media (max-width: 768px) {
             h1 {
-                font-size: 1.8rem;
-                letter-spacing: 2px;
+                font-size: 2rem;
             }
             
             .countdown-value {
                 font-size: 2rem;
-                min-width: 60px;
             }
             
             .countdown-timer {
                 flex-wrap: wrap;
+                gap: 1rem;
             }
-            
-            .countdown-timer div {
-                width: 45%;
-                margin-bottom: 1rem;
-            }
-            
-            .team {
-                padding: 0.8rem;
-            }
-        }
-        
-        /* Particles effect */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .particle {
-            position: absolute;
-            background: var(--primary-color);
-            border-radius: 50%;
-            opacity: 0;
-            animation: float linear infinite;
-            filter: blur(1px);
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg) scale(0.5);
-                opacity: 0;
-            }
-            20% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(720deg) scale(1.2);
-                opacity: 0;
-            }
-        }
-        
-        /* Cyberpunk grid effect */
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.3;
         }
     </style>
 </head>
 <body>
-    <div class="grid-overlay"></div>
-    <div class="particles" id="particles"></div>
-    
     <div class="overlay">
         <div class="header">
-            <div class="organizer-logo-container">
-                <img class="organizer-logo" 
-                     src="file:///D:/national-qualifiers-lobbys/assets/images/logo_de_l_organisateur.jpg" 
+            <div class="logo-container animate__animated animate__fadeIn">
+                <!-- Chemin relatif pour le logo -->
+                <img class="logo-img" 
+                     src="./assets/images/logo_de_l_organisateur.jpg" 
                      alt="Logo organisateur"
-                     onerror="this.onerror=null;this.src='https://via.placeholder.com/120?text=ORG';this.style.borderRadius='50%'">
+                     onerror="fallbackLogo(this)">
             </div>
             
             <h1 class="animate__animated animate__fadeIn">RÉPARTITION DES LOBBIES</h1>
-            <p class="subtitle animate__animated animate__fadeIn animate__delay-1s">NATIONAL QUALIFIERS 2025</p>
+            <p class="subtitle animate__animated animate__fadeIn">NATIONAL QUALIFIERS 2025</p>
         </div>
 
         <div class="countdown-container">
@@ -658,6 +279,7 @@
                     <div><span class="countdown-value" id="seconds-1">00</span><br><span class="countdown-label">SECONDES</span></div>
                 </div>
             </div>
+            
             <div class="countdown animate__animated animate__fadeInRight">
                 <h3>LOBBY B COMMENCE DANS</h3>
                 <div class="countdown-timer" id="countdown-2">
@@ -670,21 +292,24 @@
         </div>
 
         <div class="lobby-container">
-            <div class="lobby animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="lobby animate__animated animate__fadeInUp">
                 <div class="lobby-title">LOBBY A - 18 AVRIL 21H00</div>
                 <div class="team-list" id="teams-1"></div>
             </div>
-            <div class="lobby animate__animated animate__fadeInUp animate__delay-1s">
+            
+            <div class="lobby animate__animated animate__fadeInUp">
                 <div class="lobby-title">LOBBY B - 19 AVRIL 21H00</div>
                 <div class="team-list" id="teams-2"></div>
             </div>
         </div>
 
-        <footer class="animate__animated animate__fadeIn animate__delay-2s">By: Kirito</footer>
+        <footer class="animate__animated animate__fadeIn">
+            By: Kirito
+        </footer>
     </div>
 
     <script>
-        // Configuration des données avec numérotation
+        // Configuration des données
         const lobbies = {
             "Lobby A": [
                 "DARK PRIME",
@@ -725,131 +350,108 @@
         lobby2Date.setDate(lobby2Date.getDate() + 2);
         lobby2Date.setHours(21, 0, 0, 0);
 
-        // Fonction pour créer des particules améliorées
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+        // Fallback pour le logo
+        function fallbackLogo(img) {
+            console.log("Logo non trouvé, utilisation du fallback");
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Taille aléatoire entre 1px et 3px
-                const size = Math.random() * 2 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Position aléatoire
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.bottom = `-${size}px`;
-                
-                // Animation aléatoire
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 20;
-                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
-                particle.style.animationDelay = `${delay}s`;
-                
-                // Couleur aléatoire
-                const colors = ['#ff00ff', '#00ffff', '#ff5500', '#ffffff'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.background = color;
-                particle.style.boxShadow = `0 0 ${size*3}px ${size}px ${color}`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Fonction pour mettre à jour le compte à rebours
-        function updateCountdown() {
-            const now = new Date();
-
-            [1, 2].forEach(i => {
-                const targetDate = i === 1 ? lobby1Date : lobby2Date;
-                const diff = targetDate - now;
-                const container = document.getElementById(`countdown-${i}`);
-
-                if (diff <= 0) {
-                    container.innerHTML = `
-                        <div style='
-                            font-size:1.8rem;
-                            color:var(--success-color);
-                            padding:15px;
-                            font-weight:bold;
-                            text-transform:uppercase;
-                            text-shadow:0 0 10px rgba(var(--success-color), 0.5);
-                            animation: pulse 1.5s infinite;
-                        '>
-                            EN COURS !
-                        </div>`;
-                    
-                    // Mettre en évidence le lobby en cours
-                    const lobbyElement = document.querySelector(`.lobby:nth-child(${i})`);
-                    if (lobbyElement) {
-                        lobbyElement.style.boxShadow = `0 0 30px rgba(var(--success-color), 0.5)`;
-                        lobbyElement.querySelector('.lobby-title').style.color = 'var(--success-color)';
-                        lobbyElement.querySelector('.lobby-title').style.textShadow = '0 0 10px rgba(var(--success-color), 0.7)';
-                    }
+            // Essayer différents chemins
+            const paths = [
+                '/assets/images/logo_de_l_organisateur.jpg',
+                '/national-qualifiers-lobbys/assets/images/logo_de_l_organisateur.jpg',
+                'assets/images/logo_de_l_organisateur.jpg'
+            ];
+            
+            let currentTry = 0;
+            const tryNextPath = () => {
+                if (currentTry < paths.length) {
+                    img.src = paths[currentTry++];
+                    img.onerror = tryNextPath;
                 } else {
-                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                    document.getElementById(`days-${i}`).textContent = String(days).padStart(2, '0');
-                    document.getElementById(`hours-${i}`).textContent = String(hours).padStart(2, '0');
-                    document.getElementById(`minutes-${i}`).textContent = String(minutes).padStart(2, '0');
-                    document.getElementById(`seconds-${i}`).textContent = String(seconds).padStart(2, '0');
+                    // Tous les chemins ont échoué, utiliser un placeholder
+                    img.src = 'https://via.placeholder.com/120?text=LOGO';
+                    img.style.padding = '20px';
+                    img.style.backgroundColor = '#333';
                 }
-            });
+            };
+            
+            tryNextPath();
         }
 
-        // Fonction pour afficher les équipes avec numérotation
+        // Afficher les équipes avec numérotation
         function displayTeams() {
-            [1, 2].forEach(i => {
-                const lobbyKey = `Lobby ${String.fromCharCode(64 + i)}`;
-                const container = document.getElementById(`teams-${i}`);
+            const lobbyKeys = ["Lobby A", "Lobby B"];
+            
+            lobbyKeys.forEach((key, index) => {
+                const container = document.getElementById(`teams-${index + 1}`);
                 
-                lobbies[lobbyKey].forEach((team, index) => {
-                    const div = document.createElement('div');
-                    div.className = 'team';
-                    div.style.animationDelay = `${index * 0.1}s`;
+                lobbies[key].forEach((team, teamIndex) => {
+                    const teamElement = document.createElement('div');
+                    teamElement.className = 'team';
+                    teamElement.style.animationDelay = `${teamIndex * 0.1}s`;
                     
-                    // Ajout du numéro devant le nom de l'équipe
-                    const teamNumber = document.createElement('span');
-                    teamNumber.className = 'team-number';
-                    teamNumber.textContent = index + 1;
+                    const numberElement = document.createElement('div');
+                    numberElement.className = 'team-number';
+                    numberElement.textContent = teamIndex + 1;
                     
-                    const teamName = document.createElement('span');
-                    teamName.textContent = team;
+                    const nameElement = document.createElement('div');
+                    nameElement.textContent = team;
                     
-                    div.appendChild(teamNumber);
-                    div.appendChild(teamName);
-                    container.appendChild(div);
+                    teamElement.appendChild(numberElement);
+                    teamElement.appendChild(nameElement);
+                    container.appendChild(teamElement);
                 });
             });
         }
 
-        // Initialisation au chargement de la page
-        window.onload = () => {
-            createParticles();
+        // Mettre à jour le compte à rebours
+        function updateCountdown() {
+            const now = new Date();
+            
+            [1, 2].forEach((lobbyNum, index) => {
+                const targetDate = index === 0 ? lobby1Date : lobby2Date;
+                const diff = targetDate - now;
+                
+                if (diff <= 0) {
+                    document.getElementById(`countdown-${lobbyNum}`).innerHTML = `
+                        <div style="
+                            color: var(--success-color);
+                            padding: 1rem;
+                            text-align: center;
+                            font-weight: bold;
+                            animation: pulse 1s infinite;
+                        ">
+                            EN COURS !
+                        </div>`;
+                    return;
+                }
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById(`days-${lobbyNum}`).textContent = days.toString().padStart(2, '0');
+                document.getElementById(`hours-${lobbyNum}`).textContent = hours.toString().padStart(2, '0');
+                document.getElementById(`minutes-${lobbyNum}`).textContent = minutes.toString().padStart(2, '0');
+                document.getElementById(`seconds-${lobbyNum}`).textContent = seconds.toString().padStart(2, '0');
+            });
+        }
+
+        // Initialisation
+        window.addEventListener('DOMContentLoaded', () => {
+            // Vérifier que animate.css est chargé
+            if (!document.querySelector('.animate__animated')) {
+                console.log("Chargement de secours pour animate.css");
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
+                document.head.appendChild(link);
+            }
+            
             displayTeams();
             updateCountdown();
             setInterval(updateCountdown, 1000);
-            
-            // Effet sonore au survol
-            const hoverSound = new Audio('https://www.soundjay.com/buttons/sounds/button-10.mp3');
-            hoverSound.volume = 0.2;
-            
-            document.querySelectorAll('.countdown, .lobby, .team').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    hoverSound.currentTime = 0;
-                    hoverSound.play().catch(e => console.log("Audio play failed:", e));
-                });
-            });
-
-            // Effet de curseur personnalisé
-            document.body.style.cursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="%23ff00ff" stroke-width="2"/></svg>'), auto`;
-        };
+        });
     </script>
 </body>
 </html>
