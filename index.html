@@ -35,6 +35,40 @@
             min-height: 100vh;
             padding: 2rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        /* Effet de particules gaming */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(20px);
+                opacity: 0;
+            }
         }
 
         .header {
@@ -57,11 +91,25 @@
             box-shadow: 0 0 20px var(--primary-color);
             overflow: hidden;
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
         }
 
         .logo-container:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px var(--primary-color);
+            box-shadow: 0 0 30px var(--primary-color), 
+                        0 0 60px rgba(255, 0, 255, 0.3);
+            animation: pulse-glow 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 20px var(--primary-color);
+            }
+            100% {
+                box-shadow: 0 0 30px var(--primary-color),
+                            0 0 60px rgba(255, 0, 255, 0.5);
+            }
         }
 
         .logo-img {
@@ -81,6 +129,36 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
             animation: textGlow 2s infinite alternate;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: titleUnderline 3s infinite alternate;
+        }
+
+        @keyframes titleUnderline {
+            0% {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scaleX(0);
+                opacity: 0;
+            }
         }
 
         .subtitle {
@@ -89,6 +167,7 @@
             letter-spacing: 1px;
             margin-bottom: 2rem;
             animation: fadeIn 1s ease-out 0.5s both;
+            text-transform: uppercase;
         }
 
         .countdown-container {
@@ -98,6 +177,8 @@
             gap: 2rem;
             margin: 3rem auto;
             max-width: 1200px;
+            position: relative;
+            z-index: 2;
         }
 
         .countdown {
@@ -110,6 +191,44 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             animation: fadeInUp 1s ease-out;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                var(--primary-color),
+                transparent,
+                transparent
+            );
+            transform: rotate(30deg);
+            opacity: 0.1;
+            animation: shine 6s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(30deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(30deg);
+            }
+        }
+
+        .countdown:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
         .countdown h3 {
@@ -117,6 +236,26 @@
             font-family: 'Orbitron', sans-serif;
             text-align: center;
             margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .countdown h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--secondary-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .countdown:hover h3::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         .countdown-timer {
@@ -131,6 +270,30 @@
             color: var(--primary-color);
             font-weight: 700;
             animation: pulse 2s infinite;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+            position: relative;
+        }
+
+        .countdown-value::before {
+            content: attr(data-value);
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: var(--secondary-color);
+            opacity: 0.3;
+            z-index: -1;
+            animation: digitGlow 2s infinite alternate;
+        }
+
+        @keyframes digitGlow {
+            0% {
+                text-shadow: 0 0 5px var(--secondary-color);
+                opacity: 0.3;
+            }
+            100% {
+                text-shadow: 0 0 20px var(--secondary-color);
+                opacity: 0.1;
+            }
         }
 
         .countdown-label {
@@ -147,6 +310,8 @@
             gap: 2rem;
             margin: 3rem auto;
             max-width: 1200px;
+            position: relative;
+            z-index: 2;
         }
 
         .lobby {
@@ -159,6 +324,34 @@
             backdrop-filter: blur(10px);
             overflow: hidden;
             animation: fadeInUp 1s ease-out 0.2s both;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .lobby::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(255,0,255,0.1) 0%,
+                rgba(0,255,255,0.1) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lobby:hover::before {
+            opacity: 1;
+        }
+
+        .lobby:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5),
+                        0 0 30px rgba(255, 0, 255, 0.1);
         }
 
         .lobby-title {
@@ -168,6 +361,27 @@
             color: var(--primary-color);
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lobby-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .lobby:hover .lobby-title::after {
+            transform: scaleX(1);
         }
 
         .team-list {
@@ -183,6 +397,34 @@
             align-items: center;
             animation: fadeIn 0.5s ease-out;
             animation-fill-mode: both;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.1),
+                transparent
+            );
+            transition: all 0.5s ease;
+        }
+
+        .team:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .team:hover::before {
+            left: 100%;
         }
 
         .team-number {
@@ -198,6 +440,12 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 0.8rem;
             font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .team:hover .team-number {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px var(--primary-color);
         }
 
         footer {
@@ -206,6 +454,8 @@
             padding: 1rem;
             color: var(--text-secondary);
             font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
         }
 
         /* Animations */
@@ -256,6 +506,9 @@
 </head>
 <body>
     <div class="overlay">
+        <!-- Effet de particules gaming -->
+        <div class="particles" id="particles"></div>
+        
         <div class="header">
             <div class="logo-container animate__animated animate__fadeIn">
                 <img class="logo-img" 
@@ -272,20 +525,20 @@
             <div class="countdown animate__animated animate__fadeInLeft">
                 <h3>LOBBY A COMMENCE DANS</h3>
                 <div class="countdown-timer" id="countdown-1">
-                    <div><span class="countdown-value" id="days-1">00</span><br><span class="countdown-label">JOURS</span></div>
-                    <div><span class="countdown-value" id="hours-1">00</span><br><span class="countdown-label">HEURES</span></div>
-                    <div><span class="countdown-value" id="minutes-1">00</span><br><span class="countdown-label">MINUTES</span></div>
-                    <div><span class="countdown-value" id="seconds-1">00</span><br><span class="countdown-label">SECONDES</span></div>
+                    <div><span class="countdown-value" data-value="00" id="days-1">00</span><br><span class="countdown-label">JOURS</span></div>
+                    <div><span class="countdown-value" data-value="00" id="hours-1">00</span><br><span class="countdown-label">HEURES</span></div>
+                    <div><span class="countdown-value" data-value="00" id="minutes-1">00</span><br><span class="countdown-label">MINUTES</span></div>
+                    <div><span class="countdown-value" data-value="00" id="seconds-1">00</span><br><span class="countdown-label">SECONDES</span></div>
                 </div>
             </div>
             
             <div class="countdown animate__animated animate__fadeInRight">
                 <h3>LOBBY B COMMENCE DANS</h3>
                 <div class="countdown-timer" id="countdown-2">
-                    <div><span class="countdown-value" id="days-2">00</span><br><span class="countdown-label">JOURS</span></div>
-                    <div><span class="countdown-value" id="hours-2">00</span><br><span class="countdown-label">HEURES</span></div>
-                    <div><span class="countdown-value" id="minutes-2">00</span><br><span class="countdown-label">MINUTES</span></div>
-                    <div><span class="countdown-value" id="seconds-2">00</span><br><span class="countdown-label">SECONDES</span></div>
+                    <div><span class="countdown-value" data-value="00" id="days-2">00</span><br><span class="countdown-label">JOURS</span></div>
+                    <div><span class="countdown-value" data-value="00" id="hours-2">00</span><br><span class="countdown-label">HEURES</span></div>
+                    <div><span class="countdown-value" data-value="00" id="minutes-2">00</span><br><span class="countdown-label">MINUTES</span></div>
+                    <div><span class="countdown-value" data-value="00" id="seconds-2">00</span><br><span class="countdown-label">SECONDES</span></div>
                 </div>
             </div>
         </div>
@@ -349,23 +602,45 @@
         lobby2Date.setDate(lobby2Date.getDate() + 2);
         lobby2Date.setHours(21, 0, 0, 0);
 
+        // Création des particules gaming
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Taille aléatoire entre 2px et 5px
+                const size = Math.random() * 3 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Durée d'animation aléatoire
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Délai aléatoire
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
         // Solution robuste pour le logo avec plusieurs fallbacks
         function fallbackLogo(img) {
             console.log("Logo principal non chargé, tentative des solutions de secours...");
             
             const logoVersions = [
-                // 1. Lien direct Imgur (votre lien fourni)
                 "https://i.imgur.com/UkHSiNK.jpg",
-                
-                // 2. Lien Discord original
                 "https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg",
-                
-                // 3. Stockage local avec différents chemins
                 "./assets/images/logo_organisateur.jpg",
                 "assets/images/logo_organisateur.jpg",
                 "/assets/images/logo_organisateur.jpg",
-                
-                // 4. Placeholder stylisé
                 "https://via.placeholder.com/120/1a0d2a/ffffff?text=LOGO"
             ];
             
@@ -376,11 +651,9 @@
                     img.src = logoVersions[currentIndex++];
                     img.onerror = tryNextLogo;
                 } else {
-                    // Solution ultime si tout échoue
                     img.onerror = null;
                     img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%231a0d2a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='14' fill='white' text-anchor='middle' dominant-baseline='middle'%3ELOGO%3C/text%3E%3C/svg%3E";
                     img.style.backgroundColor = "rgba(40, 35, 60, 0.8)";
-                    console.warn("Toutes les tentatives de chargement du logo ont échoué");
                 }
             };
             
@@ -441,21 +714,27 @@
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 
                 document.getElementById(`days-${lobbyNum}`).textContent = days.toString().padStart(2, '0');
+                document.getElementById(`days-${lobbyNum}`).setAttribute('data-value', days.toString().padStart(2, '0'));
                 document.getElementById(`hours-${lobbyNum}`).textContent = hours.toString().padStart(2, '0');
+                document.getElementById(`hours-${lobbyNum}`).setAttribute('data-value', hours.toString().padStart(2, '0'));
                 document.getElementById(`minutes-${lobbyNum}`).textContent = minutes.toString().padStart(2, '0');
+                document.getElementById(`minutes-${lobbyNum}`).setAttribute('data-value', minutes.toString().padStart(2, '0'));
                 document.getElementById(`seconds-${lobbyNum}`).textContent = seconds.toString().padStart(2, '0');
+                document.getElementById(`seconds-${lobbyNum}`).setAttribute('data-value', seconds.toString().padStart(2, '0'));
             });
         }
 
         // Initialisation
         window.addEventListener('DOMContentLoaded', () => {
+            // Créer les particules
+            createParticles();
+            
             // Préchargement du logo
             const preloadLogo = new Image();
             preloadLogo.src = "https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg";
             
             // Vérifier que animate.css est chargé
             if (!document.querySelector('.animate__animated')) {
-                console.log("Chargement de secours pour animate.css");
                 const link = document.createElement('link');
                 link.rel = 'stylesheet';
                 link.href = 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
