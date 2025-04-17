@@ -38,7 +38,6 @@
             overflow: hidden;
         }
 
-        /* Effet de particules gaming */
         .particles {
             position: absolute;
             top: 0;
@@ -511,9 +510,9 @@
         
         <div class="header">
             <div class="logo-container animate__animated animate__fadeIn">
-                <!-- Source principale - GitHub RAW -->
+                <!-- Lien direct vers votre logo sur GitHub -->
                 <img class="logo-img" 
-                     src="https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/main/assets/images/logo.jpg" 
+                     src="https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/main/logo%20de%20l%20organisateur.jpg" 
                      alt="Logo organisateur"
                      onerror="fallbackLogo(this)">
             </div>
@@ -638,27 +637,22 @@
             
             // Liste ordonnée des sources de secours
             const backupSources = [
-                // 1. Lien GitHub alternatif (branche master)
-                "https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/master/assets/images/logo.jpg",
+                // 1. Lien GitHub alternatif
+                "https://github.com/Kirito-kuuun/national-qualifiers-lobbys/raw/main/logo%20de%20l%20organisateur.jpg",
                 
                 // 2. Lien GitHub avec chemin relatif
-                "./assets/images/logo.jpg",
-                "assets/images/logo.jpg",
-                "/assets/images/logo.jpg",
+                "./logo%20de%20l%20organisateur.jpg",
+                "logo%20de%20l%20organisateur.jpg",
                 
-                // 3. Anciens liens externes
-                "https://i.imgur.com/Gg9GxHW.jpg",
-                "https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg",
-                
-                // 4. Placeholder de qualité
-                "https://via.placeholder.com/120/1a0d2a/ffffff?text=NTQ2025"
+                // 3. Placeholder de qualité
+                "https://via.placeholder.com/120/1a0d2a/ffffff?text=LOGO"
             ];
             
             let currentAttempt = 0;
             
             const tryNextSource = () => {
                 if (currentAttempt < backupSources.length) {
-                    console.log(`Essai source ${currentAttempt + 1}: ${backupSources[currentAttempt]}`);
+                    console.log(`Essai source ${currentAttempt + 1}`);
                     img.src = backupSources[currentAttempt++];
                     img.onerror = tryNextSource;
                 } else {
@@ -666,7 +660,6 @@
                     console.warn("Création d'un logo de secours SVG");
                     img.onerror = null;
                     img.src = createVectorLogo();
-                    img.style.padding = "10px";
                 }
             };
             
@@ -683,18 +676,6 @@
                       text-anchor="middle" font-weight="bold">NTQ 2025</text>
             </svg>`;
             return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-        }
-
-        // Préchargement des sources du logo
-        function preloadLogoSources() {
-            const sources = [
-                "https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/main/assets/images/logo.jpg",
-                "https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/master/assets/images/logo.jpg"
-            ];
-            
-            sources.forEach(src => {
-                new Image().src = src;
-            });
         }
 
         // Afficher les équipes avec numérotation
@@ -766,11 +747,9 @@
             // Créer les particules
             createParticles();
             
-            // Précharger les logos
-            preloadLogoSources();
-            
             // Vérifier que animate.css est chargé
             if (!document.querySelector('.animate__animated')) {
+                console.log("Chargement de secours pour animate.css");
                 const link = document.createElement('link');
                 link.rel = 'stylesheet';
                 link.href = 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
