@@ -258,7 +258,6 @@
     <div class="overlay">
         <div class="header">
             <div class="logo-container animate__animated animate__fadeIn">
-                <!-- Chemin relatif pour le logo -->
                 <img class="logo-img" 
                      src="./assets/images/logo_de_l_organisateur.jpg" 
                      alt="Logo organisateur"
@@ -293,18 +292,18 @@
 
         <div class="lobby-container">
             <div class="lobby animate__animated animate__fadeInUp">
-                <div class="lobby-title">LOBBY A - 18 AVRIL 21H00</div>
+                <div class="lobby-title">LOBBY A</div>
                 <div class="team-list" id="teams-1"></div>
             </div>
             
             <div class="lobby animate__animated animate__fadeInUp">
-                <div class="lobby-title">LOBBY B - 19 AVRIL 21H00</div>
+                <div class="lobby-title">LOBBY B</div>
                 <div class="team-list" id="teams-2"></div>
             </div>
         </div>
 
         <footer class="animate__animated animate__fadeIn">
-            By: Kirito
+            Credit: <strong>KIRITO</strong>
         </footer>
     </div>
 
@@ -356,9 +355,11 @@
             
             // Essayer différents chemins
             const paths = [
+                './assets/images/logo_de_l_organisateur.jpg',
+                'assets/images/logo_de_l_organisateur.jpg',
                 '/assets/images/logo_de_l_organisateur.jpg',
                 '/national-qualifiers-lobbys/assets/images/logo_de_l_organisateur.jpg',
-                'assets/images/logo_de_l_organisateur.jpg'
+                'https://via.placeholder.com/120?text=LOGO'
             ];
             
             let currentTry = 0;
@@ -370,7 +371,7 @@
                     // Tous les chemins ont échoué, utiliser un placeholder
                     img.src = 'https://via.placeholder.com/120?text=LOGO';
                     img.style.padding = '20px';
-                    img.style.backgroundColor = '#333';
+                    img.style.backgroundColor = 'rgba(40, 35, 60, 0.8)';
                 }
             };
             
