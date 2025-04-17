@@ -511,8 +511,9 @@
         
         <div class="header">
             <div class="logo-container animate__animated animate__fadeIn">
+                <!-- Source principale - GitHub RAW -->
                 <img class="logo-img" 
-                     src="https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg" 
+                     src="https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/main/assets/images/logo.jpg" 
                      alt="Logo organisateur"
                      onerror="fallbackLogo(this)">
             </div>
@@ -631,33 +632,69 @@
             }
         }
 
-        // Solution robuste pour le logo avec plusieurs fallbacks
+        // Solution ultra-robuste pour le logo
         function fallbackLogo(img) {
-            console.log("Logo principal non chargé, tentative des solutions de secours...");
+            console.log("Tentative de chargement du logo échouée, activation des secours...");
             
-            const logoVersions = [
-                "https://i.imgur.com/UkHSiNK.jpg",
+            // Liste ordonnée des sources de secours
+            const backupSources = [
+                // 1. Lien GitHub alternatif (branche master)
+                "https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/master/assets/images/logo.jpg",
+                
+                // 2. Lien GitHub avec chemin relatif
+                "./assets/images/logo.jpg",
+                "assets/images/logo.jpg",
+                "/assets/images/logo.jpg",
+                
+                // 3. Anciens liens externes
+                "https://i.imgur.com/Gg9GxHW.jpg",
                 "https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg",
-                "./assets/images/logo_organisateur.jpg",
-                "assets/images/logo_organisateur.jpg",
-                "/assets/images/logo_organisateur.jpg",
-                "https://via.placeholder.com/120/1a0d2a/ffffff?text=LOGO"
+                
+                // 4. Placeholder de qualité
+                "https://via.placeholder.com/120/1a0d2a/ffffff?text=NTQ2025"
             ];
             
-            let currentIndex = 0;
+            let currentAttempt = 0;
             
-            const tryNextLogo = () => {
-                if (currentIndex < logoVersions.length) {
-                    img.src = logoVersions[currentIndex++];
-                    img.onerror = tryNextLogo;
+            const tryNextSource = () => {
+                if (currentAttempt < backupSources.length) {
+                    console.log(`Essai source ${currentAttempt + 1}: ${backupSources[currentAttempt]}`);
+                    img.src = backupSources[currentAttempt++];
+                    img.onerror = tryNextSource;
                 } else {
+                    // Solution intégrée si tout échoue
+                    console.warn("Création d'un logo de secours SVG");
                     img.onerror = null;
-                    img.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%231a0d2a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='14' fill='white' text-anchor='middle' dominant-baseline='middle'%3ELOGO%3C/text%3E%3C/svg%3E";
-                    img.style.backgroundColor = "rgba(40, 35, 60, 0.8)";
+                    img.src = createVectorLogo();
+                    img.style.padding = "10px";
                 }
             };
             
-            tryNextLogo();
+            tryNextSource();
+        }
+
+        // Crée un logo vectoriel de secours
+        function createVectorLogo() {
+            const svg = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+                <rect width="120" height="120" rx="60" fill="#1a0d2a"/>
+                <circle cx="60" cy="60" r="55" fill="none" stroke="#ff00ff" stroke-width="3"/>
+                <text x="60" y="65" font-family="Orbitron" font-size="16" fill="#00ffff" 
+                      text-anchor="middle" font-weight="bold">NTQ 2025</text>
+            </svg>`;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+        }
+
+        // Préchargement des sources du logo
+        function preloadLogoSources() {
+            const sources = [
+                "https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/main/assets/images/logo.jpg",
+                "https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/master/assets/images/logo.jpg"
+            ];
+            
+            sources.forEach(src => {
+                new Image().src = src;
+            });
         }
 
         // Afficher les équipes avec numérotation
@@ -729,9 +766,8 @@
             // Créer les particules
             createParticles();
             
-            // Préchargement du logo
-            const preloadLogo = new Image();
-            preloadLogo.src = "https://cdn.discordapp.com/attachments/1250803212433362945/1362476099338113024/att.2zovJLsj9Yh7Jei1QkfNChI5HsuYZGJL3dOnJb3-vN4.jpg";
+            // Précharger les logos
+            preloadLogoSources();
             
             // Vérifier que animate.css est chargé
             if (!document.querySelector('.animate__animated')) {
