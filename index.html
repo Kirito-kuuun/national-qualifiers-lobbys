@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RÉPARTITION DES LOBBIES - NATIONAL QUALIFIERS 2025</title>
     
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <!-- CSS avec triple fallback -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"
+          onerror="this.onerror=null;this.href='./assets/css/animate.min.css'">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@400;600&display=swap">
     
     <style>
@@ -57,17 +58,9 @@
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(20px);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
         }
 
         .header {
@@ -90,32 +83,12 @@
             box-shadow: 0 0 20px var(--primary-color);
             overflow: hidden;
             transition: all 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo-container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px var(--primary-color), 
-                        0 0 60px rgba(255, 0, 255, 0.3);
-            animation: pulse-glow 1.5s infinite alternate;
-        }
-
-        @keyframes pulse-glow {
-            0% {
-                box-shadow: 0 0 20px var(--primary-color);
-            }
-            100% {
-                box-shadow: 0 0 30px var(--primary-color),
-                            0 0 60px rgba(255, 0, 255, 0.5);
-            }
         }
 
         .logo-img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            animation: fadeIn 1s ease-out;
         }
 
         h1 {
@@ -127,37 +100,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
-            animation: textGlow 2s infinite alternate;
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            transform: scaleX(0);
-            transform-origin: left;
-            animation: titleUnderline 3s infinite alternate;
-        }
-
-        @keyframes titleUnderline {
-            0% {
-                transform: scaleX(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scaleX(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scaleX(0);
-                opacity: 0;
-            }
         }
 
         .subtitle {
@@ -165,7 +107,6 @@
             font-size: 1.2rem;
             letter-spacing: 1px;
             margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out 0.5s both;
             text-transform: uppercase;
         }
 
@@ -189,45 +130,7 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            animation: fadeInUp 1s ease-out;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .countdown::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                transparent,
-                transparent,
-                transparent,
-                var(--primary-color),
-                transparent,
-                transparent
-            );
-            transform: rotate(30deg);
-            opacity: 0.1;
-            animation: shine 6s infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%) rotate(30deg);
-            }
-            100% {
-                transform: translateX(100%) rotate(30deg);
-            }
-        }
-
-        .countdown:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
         .countdown h3 {
@@ -235,26 +138,6 @@
             font-family: 'Orbitron', sans-serif;
             text-align: center;
             margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .countdown h3::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--secondary-color);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s ease;
-        }
-
-        .countdown:hover h3::after {
-            transform: scaleX(1);
-            transform-origin: left;
         }
 
         .countdown-timer {
@@ -268,31 +151,6 @@
             font-family: 'Orbitron', sans-serif;
             color: var(--primary-color);
             font-weight: 700;
-            animation: pulse 2s infinite;
-            text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
-            position: relative;
-        }
-
-        .countdown-value::before {
-            content: attr(data-value);
-            position: absolute;
-            top: 0;
-            left: 0;
-            color: var(--secondary-color);
-            opacity: 0.3;
-            z-index: -1;
-            animation: digitGlow 2s infinite alternate;
-        }
-
-        @keyframes digitGlow {
-            0% {
-                text-shadow: 0 0 5px var(--secondary-color);
-                opacity: 0.3;
-            }
-            100% {
-                text-shadow: 0 0 20px var(--secondary-color);
-                opacity: 0.1;
-            }
         }
 
         .countdown-label {
@@ -309,8 +167,6 @@
             gap: 2rem;
             margin: 3rem auto;
             max-width: 1200px;
-            position: relative;
-            z-index: 2;
         }
 
         .lobby {
@@ -322,35 +178,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             overflow: hidden;
-            animation: fadeInUp 1s ease-out 0.2s both;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .lobby::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                135deg,
-                rgba(255,0,255,0.1) 0%,
-                rgba(0,255,255,0.1) 100%
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lobby:hover::before {
-            opacity: 1;
-        }
-
-        .lobby:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5),
-                        0 0 30px rgba(255, 0, 255, 0.1);
         }
 
         .lobby-title {
@@ -360,27 +187,6 @@
             color: var(--primary-color);
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lobby-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s ease;
-        }
-
-        .lobby:hover .lobby-title::after {
-            transform: scaleX(1);
         }
 
         .team-list {
@@ -394,36 +200,6 @@
             border-radius: 8px;
             display: flex;
             align-items: center;
-            animation: fadeIn 0.5s ease-out;
-            animation-fill-mode: both;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .team::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,0.1),
-                transparent
-            );
-            transition: all 0.5s ease;
-        }
-
-        .team:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .team:hover::before {
-            left: 100%;
         }
 
         .team-number {
@@ -439,12 +215,6 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 0.8rem;
             font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .team:hover .team-number {
-            transform: scale(1.1);
-            box-shadow: 0 0 10px var(--primary-color);
         }
 
         footer {
@@ -453,246 +223,153 @@
             padding: 1rem;
             color: var(--text-secondary);
             font-size: 0.9rem;
-            position: relative;
-            z-index: 2;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* Mode dégradé */
+        .degraded-mode {
+            animation: none !important;
         }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 10px var(--primary-color); }
-            50% { text-shadow: 0 0 20px var(--secondary-color); }
-            100% { text-shadow: 0 0 10px var(--primary-color); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .countdown-value {
-                font-size: 2rem;
-            }
-            
-            .countdown-timer {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
+        .degraded-mode .logo-container {
+            box-shadow: none;
         }
     </style>
 </head>
 <body>
     <div class="overlay">
-        <!-- Effet de particules gaming -->
         <div class="particles" id="particles"></div>
         
         <div class="header">
-            <div class="logo-container animate__animated animate__fadeIn">
-                <!-- Lien direct vers votre logo sur GitHub -->
-                <img class="logo-img" 
-                     src="https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/main/logo%20de%20l%20organisateur.jpg" 
-                     alt="Logo organisateur"
-                     onerror="fallbackLogo(this)">
+            <div class="logo-container">
+                <img class="logo-img" id="main-logo" alt="Logo organisateur">
             </div>
             
-            <h1 class="animate__animated animate__fadeIn">RÉPARTITION DES LOBBIES</h1>
-            <p class="subtitle animate__animated animate__fadeIn">NATIONAL QUALIFIERS 2025</p>
+            <h1>RÉPARTITION DES LOBBIES</h1>
+            <p class="subtitle">NATIONAL QUALIFIERS 2025</p>
         </div>
 
         <div class="countdown-container">
-            <div class="countdown animate__animated animate__fadeInLeft">
+            <div class="countdown">
                 <h3>LOBBY A COMMENCE DANS</h3>
                 <div class="countdown-timer" id="countdown-1">
-                    <div><span class="countdown-value" data-value="00" id="days-1">00</span><br><span class="countdown-label">JOURS</span></div>
-                    <div><span class="countdown-value" data-value="00" id="hours-1">00</span><br><span class="countdown-label">HEURES</span></div>
-                    <div><span class="countdown-value" data-value="00" id="minutes-1">00</span><br><span class="countdown-label">MINUTES</span></div>
-                    <div><span class="countdown-value" data-value="00" id="seconds-1">00</span><br><span class="countdown-label">SECONDES</span></div>
+                    <div><span class="countdown-value" id="days-1">00</span><br><span class="countdown-label">JOURS</span></div>
+                    <div><span class="countdown-value" id="hours-1">00</span><br><span class="countdown-label">HEURES</span></div>
+                    <div><span class="countdown-value" id="minutes-1">00</span><br><span class="countdown-label">MINUTES</span></div>
+                    <div><span class="countdown-value" id="seconds-1">00</span><br><span class="countdown-label">SECONDES</span></div>
                 </div>
             </div>
             
-            <div class="countdown animate__animated animate__fadeInRight">
+            <div class="countdown">
                 <h3>LOBBY B COMMENCE DANS</h3>
                 <div class="countdown-timer" id="countdown-2">
-                    <div><span class="countdown-value" data-value="00" id="days-2">00</span><br><span class="countdown-label">JOURS</span></div>
-                    <div><span class="countdown-value" data-value="00" id="hours-2">00</span><br><span class="countdown-label">HEURES</span></div>
-                    <div><span class="countdown-value" data-value="00" id="minutes-2">00</span><br><span class="countdown-label">MINUTES</span></div>
-                    <div><span class="countdown-value" data-value="00" id="seconds-2">00</span><br><span class="countdown-label">SECONDES</span></div>
+                    <div><span class="countdown-value" id="days-2">00</span><br><span class="countdown-label">JOURS</span></div>
+                    <div><span class="countdown-value" id="hours-2">00</span><br><span class="countdown-label">HEURES</span></div>
+                    <div><span class="countdown-value" id="minutes-2">00</span><br><span class="countdown-label">MINUTES</span></div>
+                    <div><span class="countdown-value" id="seconds-2">00</span><br><span class="countdown-label">SECONDES</span></div>
                 </div>
             </div>
         </div>
 
         <div class="lobby-container">
-            <div class="lobby animate__animated animate__fadeInUp">
+            <div class="lobby">
                 <div class="lobby-title">LOBBY A</div>
                 <div class="team-list" id="teams-1"></div>
             </div>
             
-            <div class="lobby animate__animated animate__fadeInUp">
+            <div class="lobby">
                 <div class="lobby-title">LOBBY B</div>
                 <div class="team-list" id="teams-2"></div>
             </div>
         </div>
 
-        <footer class="animate__animated animate__fadeIn">
+        <footer>
             Credit: <strong>KIRITO</strong>
         </footer>
     </div>
 
     <script>
-        // Configuration des données
-        const lobbies = {
-            "Lobby A": [
-                "DARK PRIME",
-                "LES ORIGINELS",
-                "GOTHAM",
-                "NERV 667",
-                "DREAD NOUGHT",
-                "UNKNOW BRAIN",
-                "THE BAD GUYS",
-                "THE HUNTER OF DREAMS",
-                "OLDGAMER",
-                "VOANJOBORY",
-                "NOOBSTORM",
-                "TEAM BABY"
-            ],
-            "Lobby B": [
-                "DOOMBRINGERS",
-                "CIPHER POL O",
-                "AMBOHIPO STREET",
-                "JOBA",
-                "INSANE UND",
-                "DEAD",
-                "MDG E-SPORT",
-                "EAZY GAMES",
-                "BRIGADE FANTÔME",
-                "THE INVISIBLE AFK",
-                "MADA GOAT E-SPORT",
-                "SUICIDE SQUAD"
-            ]
+        // ===== CONFIGURATION =====
+        const CONFIG = {
+            logo: {
+                sources: [
+                    // Ordre optimisé pour GitHub
+                    "https://raw.githubusercontent.com/Kirito-kuuun/national-qualifiers-lobbys/main/logo%20de%20l%20organisateur.jpg",
+                    "./logo%20de%20l%20organisateur.jpg",
+                    "https://cdn.jsdelivr.net/gh/Kirito-kuuun/national-qualifiers-lobbys@main/logo%20de%20l%20organisateur.jpg",
+                    "./assets/images/logo%20de%20l%20organisateur.jpg"
+                ],
+                fallback: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%231a0d2a'/%3E%3Ctext x='60' y='65' font-family='Arial' font-size='14' fill='%23ffffff' text-anchor='middle'%3ELOGO%3C/text%3E%3C/svg%3E"
+            },
+            lobbies: {
+                "Lobby A": [
+                    "DARK PRIME",
+                    "LES ORIGINELS",
+                    "GOTHAM",
+                    "NERV 667",
+                    "DREAD NOUGHT",
+                    "UNKNOW BRAIN",
+                    "THE BAD GUYS",
+                    "THE HUNTER OF DREAMS",
+                    "OLDGAMER",
+                    "VOANJOBORY",
+                    "NOOBSTORM",
+                    "TEAM BABY"
+                ],
+                "Lobby B": [
+                    "DOOMBRINGERS",
+                    "CIPHER POL O",
+                    "AMBOHIPO STREET",
+                    "JOBA",
+                    "INSANE UND",
+                    "DEAD",
+                    "MDG E-SPORT",
+                    "EAZY GAMES",
+                    "BRIGADE FANTÔME",
+                    "THE INVISIBLE AFK",
+                    "MADA GOAT E-SPORT",
+                    "SUICIDE SQUAD"
+                ]
+            }
         };
 
-        // Dates des lobbies
-        const lobby1Date = new Date();
-        lobby1Date.setDate(lobby1Date.getDate() + 1);
-        lobby1Date.setHours(21, 0, 0, 0);
-
-        const lobby2Date = new Date();
-        lobby2Date.setDate(lobby2Date.getDate() + 2);
-        lobby2Date.setHours(21, 0, 0, 0);
-
-        // Création des particules gaming
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
+        // ===== FONCTIONS CORE =====
+        function loadLogo() {
+            const logo = document.getElementById('main-logo');
+            let attempts = 0;
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Taille aléatoire entre 2px et 5px
-                const size = Math.random() * 3 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Position aléatoire
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                
-                // Durée d'animation aléatoire
-                const duration = Math.random() * 20 + 10;
-                particle.style.animationDuration = `${duration}s`;
-                
-                // Délai aléatoire
-                particle.style.animationDelay = `${Math.random() * 10}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Solution ultra-robuste pour le logo
-        function fallbackLogo(img) {
-            console.log("Tentative de chargement du logo échouée, activation des secours...");
-            
-            // Liste ordonnée des sources de secours
-            const backupSources = [
-                // 1. Lien GitHub alternatif
-                "https://github.com/Kirito-kuuun/national-qualifiers-lobbys/raw/main/logo%20de%20l%20organisateur.jpg",
-                
-                // 2. Lien GitHub avec chemin relatif
-                "./logo%20de%20l%20organisateur.jpg",
-                "logo%20de%20l%20organisateur.jpg",
-                
-                // 3. Placeholder de qualité
-                "https://via.placeholder.com/120/1a0d2a/ffffff?text=LOGO"
-            ];
-            
-            let currentAttempt = 0;
-            
-            const tryNextSource = () => {
-                if (currentAttempt < backupSources.length) {
-                    console.log(`Essai source ${currentAttempt + 1}`);
-                    img.src = backupSources[currentAttempt++];
-                    img.onerror = tryNextSource;
-                } else {
-                    // Solution intégrée si tout échoue
-                    console.warn("Création d'un logo de secours SVG");
-                    img.onerror = null;
-                    img.src = createVectorLogo();
+            const tryLoad = () => {
+                if (attempts >= CONFIG.logo.sources.length) {
+                    logo.src = CONFIG.logo.fallback;
+                    document.body.classList.add('degraded-mode');
+                    return;
                 }
+                
+                const img = new Image();
+                img.onload = () => {
+                    logo.src = CONFIG.logo.sources[attempts];
+                    console.log("Logo chargé depuis:", CONFIG.logo.sources[attempts]);
+                };
+                img.onerror = () => {
+                    attempts++;
+                    setTimeout(tryLoad, 100);
+                };
+                img.src = CONFIG.logo.sources[attempts];
             };
             
-            tryNextSource();
+            tryLoad();
         }
 
-        // Crée un logo vectoriel de secours
-        function createVectorLogo() {
-            const svg = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
-                <rect width="120" height="120" rx="60" fill="#1a0d2a"/>
-                <circle cx="60" cy="60" r="55" fill="none" stroke="#ff00ff" stroke-width="3"/>
-                <text x="60" y="65" font-family="Orbitron" font-size="16" fill="#00ffff" 
-                      text-anchor="middle" font-weight="bold">NTQ 2025</text>
-            </svg>`;
-            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-        }
-
-        // Afficher les équipes avec numérotation
         function displayTeams() {
-            const lobbyKeys = ["Lobby A", "Lobby B"];
-            
-            lobbyKeys.forEach((key, index) => {
-                const container = document.getElementById(`teams-${index + 1}`);
+            for (const [lobby, teams] of Object.entries(CONFIG.lobbies)) {
+                const containerId = `teams-${lobby === "Lobby A" ? 1 : 2}`;
+                const container = document.getElementById(containerId);
                 
-                lobbies[key].forEach((team, teamIndex) => {
+                teams.forEach((team, index) => {
                     const teamElement = document.createElement('div');
                     teamElement.className = 'team';
-                    teamElement.style.animationDelay = `${teamIndex * 0.1}s`;
                     
                     const numberElement = document.createElement('div');
                     numberElement.className = 'team-number';
-                    numberElement.textContent = teamIndex + 1;
+                    numberElement.textContent = index + 1;
                     
                     const nameElement = document.createElement('div');
                     nameElement.textContent = team;
@@ -701,12 +378,18 @@
                     teamElement.appendChild(nameElement);
                     container.appendChild(teamElement);
                 });
-            });
+            }
         }
 
-        // Mettre à jour le compte à rebours
         function updateCountdown() {
             const now = new Date();
+            const lobby1Date = new Date();
+            lobby1Date.setDate(now.getDate() + 1);
+            lobby1Date.setHours(21, 0, 0, 0);
+            
+            const lobby2Date = new Date();
+            lobby2Date.setDate(now.getDate() + 2);
+            lobby2Date.setHours(21, 0, 0, 0);
             
             [1, 2].forEach((lobbyNum, index) => {
                 const targetDate = index === 0 ? lobby1Date : lobby2Date;
@@ -714,13 +397,7 @@
                 
                 if (diff <= 0) {
                     document.getElementById(`countdown-${lobbyNum}`).innerHTML = `
-                        <div style="
-                            color: var(--success-color);
-                            padding: 1rem;
-                            text-align: center;
-                            font-weight: bold;
-                            animation: pulse 1s infinite;
-                        ">
+                        <div style="color: var(--success-color); padding: 1rem; text-align: center; font-weight: bold;">
                             EN COURS !
                         </div>`;
                     return;
@@ -732,33 +409,49 @@
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 
                 document.getElementById(`days-${lobbyNum}`).textContent = days.toString().padStart(2, '0');
-                document.getElementById(`days-${lobbyNum}`).setAttribute('data-value', days.toString().padStart(2, '0'));
                 document.getElementById(`hours-${lobbyNum}`).textContent = hours.toString().padStart(2, '0');
-                document.getElementById(`hours-${lobbyNum}`).setAttribute('data-value', hours.toString().padStart(2, '0'));
                 document.getElementById(`minutes-${lobbyNum}`).textContent = minutes.toString().padStart(2, '0');
-                document.getElementById(`minutes-${lobbyNum}`).setAttribute('data-value', minutes.toString().padStart(2, '0'));
                 document.getElementById(`seconds-${lobbyNum}`).textContent = seconds.toString().padStart(2, '0');
-                document.getElementById(`seconds-${lobbyNum}`).setAttribute('data-value', seconds.toString().padStart(2, '0'));
             });
         }
 
-        // Initialisation
-        window.addEventListener('DOMContentLoaded', () => {
-            // Créer les particules
-            createParticles();
+        // ===== INITIALISATION =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Charger le logo en premier
+            loadLogo();
             
-            // Vérifier que animate.css est chargé
-            if (!document.querySelector('.animate__animated')) {
-                console.log("Chargement de secours pour animate.css");
-                const link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
-                document.head.appendChild(link);
-            }
-            
+            // 2. Initialiser les autres composants
             displayTeams();
             updateCountdown();
             setInterval(updateCountdown, 1000);
+            
+            // 3. Créer des particules
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.width = `${Math.random() * 3 + 2}px`;
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                document.getElementById('particles').appendChild(particle);
+            }
+            
+            // 4. Fallback pour animate.css
+            if (!document.querySelector('.animate__animated')) {
+                const fallbackCSS = document.createElement('link');
+                fallbackCSS.rel = 'stylesheet';
+                fallbackCSS.href = './assets/css/animate.min.css';
+                document.head.appendChild(fallbackCSS);
+            }
+        });
+
+        // ===== GESTION DES ERREURS =====
+        window.addEventListener('error', (e) => {
+            console.error("Erreur interceptée:", e.message);
+            document.body.classList.add('degraded-mode');
+            return true;
         });
     </script>
 </body>
